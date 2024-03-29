@@ -57,3 +57,23 @@ def playkeys(button):
     elif button.text=="G":
         effectG=pyglet.resource.media("G.wav",streaming=False)
         effectG.play()
+
+detector = HandDetector()
+
+while True:
+    success,img=cap.read()
+    img= detector.findHands(img)
+    lmlist,bboxInfo=detector.findPosition(img)
+    img=drawAll(img,buttonList)
+    if lmlist: #hand is there
+        for button in buttonList:
+            x,y=button.pos
+            w,h=button.size
+            for f in [4,8,12,16,20]:
+                  if x<lmlist[f][0]<x+w and y<lmlist[f][1]<y+h:
+                     l,_,_=detector.findDistance(f,f-3, img, draw =False)
+                     if l<120:
+                         #cv2.rectangle(img,button.pos,(x+w,y+h),(80,9,78),cv2.FILLED)
+                         playkeys(button)
+    cv2.imshow("IMAGE",img)
+    cv2.waitKey(1)

@@ -61,10 +61,10 @@ def playkeys(button):
 detector = HandDetector()
 
 while True:
-    success,img=cap.read()
-    img= detector.findHands(img)
-    lmlist,bboxInfo=detector.findPosition(img)
-    img=drawAll(img,buttonList)
+    success,img = cap.read()
+    img = detector.findHands(img)
+    lmlist,bboxInfo = detector.findPosition(img)
+    img = drawAll(img,buttonList)
     if lmlist: #hand is there
         for button in buttonList:
             x,y=button.pos

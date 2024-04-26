@@ -1,13 +1,16 @@
 import cv2
 import math
-from pypiano import Piano
-from mingus.containers import Note
-from mingus.midi import fluidsynth
+
+import playsound as ps
+#from pypiano import Piano
+#from mingus.containers import Note
+#from mingus.midi import fluidsynth
+
 from HandTrackingModule import FindHands
 
 cap = cv2.VideoCapture(0)
 detector = FindHands()
-p = Piano()
+#p = Piano()
 def thumbDown(hand_positions, orig_hand):
     # orig_hand[0][0] = index first point; orig_hand[0][1] = index second point
     # compare above coordinates to hand1_positions[7] = index first point and hand1_positions[8] = index first point
@@ -57,6 +60,11 @@ orig_hand.append((hand1_positions[15], hand1_positions[16]))
 orig_hand.append((hand1_positions[19], hand1_positions[20]))
 orig_hand.append((hand1_positions[3], hand1_positions[4]))
 
+thumbBool = False
+indexBool = False
+middleBool = False
+ringBool = False
+pinkyBool = False
 
 while True:
     _, img = cap.read()
@@ -81,21 +89,36 @@ while True:
     # print("Middle finger up:", detector.middle_finger_up(img))
     # print("Ring finger up:", detector.ring_finger_up(img))
     # print("Little finger up:", detector.little_finger_up(img))
-    if(thumbDown(hand1_positions, orig_hand)):
-        p.play("C-4")
+    if(not thumbBool and thumbDown(hand1_positions, orig_hand)):
+        ps.playsound("PianoNotes/A.mp3")
         print("thumb down")
-    if(indexDown(hand1_positions, orig_hand)):
-        p.play("C-4")
+        thumbBool = True
+    else:
+        thumbBool = False
+    if(not indexBool and indexDown(hand1_positions, orig_hand)):
+        ps.playsound("PianoNotes/G.mp3")
         print("index down")
-    if(middleDown(hand1_positions, orig_hand)):
-        p.play("C-4")
+        indexBool = True
+    else:
+        indexBool = False
+    if(not middleBool and middleDown(hand1_positions, orig_hand)):
+        ps.playsound("PianoNotes/E.mp3")
         print("middle down")
-    if(ringDown(hand1_positions, orig_hand)):
-        p.play("C-4")
+        middleBool = True
+    else:
+        middleBool = False
+    if(not ringBool and ringDown(hand1_positions, orig_hand)):
+        ps.playsound("PianoNotes/D.mp3")
         print("ring down")
-    if(pinkyDown(hand1_positions, orig_hand)):
-        p.play("C-4")
+        ringBool = True
+    else:
+        ringBool = False
+    if(not pinkyBool and pinkyDown(hand1_positions, orig_hand)):
+        ps.playsound("PianoNotes/C.mp3")
         print("pinky down")
+        pinkyBool = True
+    else:
+        pinkyBool = False
     cv2.imshow("Image", img)
     if cv2.waitKey(10) == ord('q'):
         break

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -ex
+python airpiano.py a2.mp4 
+cp result.txt ../results

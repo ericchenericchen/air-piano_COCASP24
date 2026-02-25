@@ -1,0 +1,5 @@
+scipy==1.17.0
+numpy==2.4.2
+sounddevice==0.5.5 # if not on mac/windows, may need to separately install portaudio library (https://python-sounddevice.readthedocs.io/en/0.5.3/installation.html)
+matplotlib==3.9.2
+pynput==1.8.1

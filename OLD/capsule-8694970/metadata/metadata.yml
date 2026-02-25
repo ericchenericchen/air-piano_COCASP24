@@ -1,0 +1,15 @@
+metadata_version: 1
+name: airpiano for playing piano in the air
+description: airpiano is a PyPI application for playing piano in the air with five
+  fingers.
+tags:
+- MediaPipe
+- airpiano
+- PyPI application
+authors:
+- name: takefuji
+  affiliations:
+  - name: musashino university
+corresponding_contributor:
+  name: 'takefuji '
+  email: takefuji@keio.jp
